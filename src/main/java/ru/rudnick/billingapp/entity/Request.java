@@ -6,21 +6,18 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
+@Table(name = "Request")
 @Data
-@Table(name = "Bill")
-public class Bill {
+public class Request {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    Long billId;
+    Long requestId;
     @ManyToOne
-    @JoinColumn(name = "accountFromId")
+    @JoinColumn(name="accountFromId")
     Account from;
     @ManyToOne
-    @JoinColumn(name = "accountToId")
+    @JoinColumn(name="accountToId")
     Account to;
     BigDecimal amount;
-    @OneToOne
-    @JoinColumn(name = "requestId")
-    Request request;
 }
