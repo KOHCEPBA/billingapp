@@ -3,6 +3,7 @@ package ru.rudnick.billingapp.rest.api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.rudnick.billingapp.entity.Bill;
 import ru.rudnick.billingapp.repository.BillRepository;
@@ -10,17 +11,18 @@ import ru.rudnick.billingapp.repository.BillRepository;
 import java.util.List;
 
 @RestController
-public class BillingController {
+@RequestMapping("/bill")
+public class BillController {
 
     @Autowired
     BillRepository repository;
 
-    @GetMapping("/bill/{id}")
-    public Bill getBill(@PathVariable Bill bill) {
+    @GetMapping("/{id}")
+    public Bill getBill(@PathVariable("id") Bill bill) {
         return bill;
     }
 
-    @GetMapping("/bills")
+    @GetMapping("/all")
     public List<Bill> getAllBills() {
         return repository.findAll();
     }
