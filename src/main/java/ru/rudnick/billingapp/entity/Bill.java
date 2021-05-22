@@ -1,6 +1,7 @@
 package ru.rudnick.billingapp.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
@@ -11,6 +12,7 @@ import java.math.BigDecimal;
 @Data
 @Table(name = "Bill")
 @RequiredArgsConstructor
+@NoArgsConstructor
 public class Bill {
 
     @Id
