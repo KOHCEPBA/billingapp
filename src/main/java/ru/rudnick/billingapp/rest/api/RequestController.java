@@ -3,10 +3,10 @@ package ru.rudnick.billingapp.rest.api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.rudnick.billingapp.entity.Account;
-import ru.rudnick.billingapp.entity.Audit;
+import ru.rudnick.billingapp.entity.Bill;
 import ru.rudnick.billingapp.entity.Request;
-import ru.rudnick.billingapp.repository.AuditRepository;
-import ru.rudnick.billingapp.repository.RequestRepository;
+import ru.rudnick.billingapp.service.RequestService;
+import ru.rudnick.billingapp.util.exception.InvalidRequest;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -16,13 +16,11 @@ import java.util.List;
 public class RequestController {
 
     @Autowired
-    RequestRepository requestRepository;
-    @Autowired
-    AuditRepository auditRepository;
+    RequestService requestService;
 
     @GetMapping("/all")
     public List<Request> getAllRequests() {
-        return requestRepository.findAll();
+        return requestService.getAllRequests();
     }
 
     @GetMapping("/{id}")
@@ -34,11 +32,20 @@ public class RequestController {
     public Request createNewRequest(@RequestParam("accountFromId") Account accountFrom,
                                     @RequestParam("accountToId") Account accountTo,
                                     @RequestParam("amount") BigDecimal amount) {
-        Request newRequest = new Request(accountFrom, accountTo, amount);
-        Request request = requestRepository.save(newRequest);
-        Audit audit = new Audit();
-        audit.setRequest(request);
-        auditRepository.save(audit);
-        return request;
+        Request request = requestService.createNewRequest(accountFrom, accountTo, amount);
+        if (request != null) {
+            return request;
+        } else {
+            throw new InvalidRequest("Can't create request with this accounts");
+        }
+    }
+
+    @PostMapping("/{id}/{status}")
+    public Bill auditResolution(@PathVariable("id") Request request, @PathVariable("status") Request.Status status) {
+        if (request.getStatus() != Request.Status.OPEN) {
+            throw new InvalidRequest("Can't change resolution");
+        } else {
+            return requestService.auditResolution(request, status);
+        }
     }
 }
