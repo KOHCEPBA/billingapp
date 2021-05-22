@@ -1,6 +1,8 @@
 package ru.rudnick.billingapp.entity;
 
 import lombok.Data;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -8,19 +10,24 @@ import java.math.BigDecimal;
 @Entity
 @Data
 @Table(name = "Bill")
+@RequiredArgsConstructor
 public class Bill {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    Long billId;
+    private Long billId;
     @ManyToOne
     @JoinColumn(name = "accountFromId")
-    Account from;
+    @NonNull
+    private Account from;
     @ManyToOne
     @JoinColumn(name = "accountToId")
-    Account to;
-    BigDecimal amount;
+    @NonNull
+    private Account to;
+    @NonNull
+    private BigDecimal amount;
     @OneToOne
     @JoinColumn(name = "requestId")
-    Request request;
+    @NonNull
+    private Request request;
 }

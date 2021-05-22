@@ -1,6 +1,8 @@
 package ru.rudnick.billingapp.entity;
 
 import lombok.Data;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -9,16 +11,17 @@ import java.time.OffsetDateTime;
 @Entity
 @Table(name = "Audit")
 @Data
+@RequiredArgsConstructor
 public class Audit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    Long auditId;
+    private Long auditId;
     @OneToOne
     @JoinColumn(name="requestId")
-    Request request;
+    private Request request;
     @OneToOne
     @JoinColumn(name="billId")
-    Bill bill;
-    OffsetDateTime time;
+    private Bill bill;
+    private OffsetDateTime time = OffsetDateTime.now();
 }
