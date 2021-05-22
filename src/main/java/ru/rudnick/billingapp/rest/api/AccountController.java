@@ -9,25 +9,26 @@ import ru.rudnick.billingapp.repository.AccountRepository;
 import java.util.List;
 
 @RestController
+@RequestMapping("/account")
 public class AccountController {
 
     @Autowired
     AccountRepository repository;
 
-    @GetMapping("/account/{id}")
-    public Account getAccount(@PathVariable Account account) {
-        return account;
-    }
-
-    @GetMapping("/accounts")
+    @GetMapping("/all")
     public List<Account> getAllAccounts() {
         return repository.findAll();
     }
 
-    @PostMapping("/create/account")
+    @GetMapping("/{id}")
+    public Account getAccount(@PathVariable("id") Account account) {
+        return account;
+    }
+
+    @PostMapping("/create")
     public Account createNewAccount() {
         Account account = new Account();
-        repository.saveAndFlush(account);
+        repository.save(account);
         return account;
     }
 }
