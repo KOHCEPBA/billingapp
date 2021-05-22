@@ -19,13 +19,21 @@ public class Request {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long requestId;
     @ManyToOne
-    @JoinColumn(name="accountFromId")
+    @JoinColumn(name = "accountFromId")
     @NonNull
     private Account from;
     @ManyToOne
-    @JoinColumn(name="accountToId")
+    @JoinColumn(name = "accountToId")
     @NonNull
     private Account to;
     @NonNull
     private BigDecimal amount;
+    @Enumerated(EnumType.STRING)
+    private Status status = Status.OPEN;
+
+    public enum Status {
+        OPEN,
+        ACCEPT,
+        REJECT
+    }
 }
