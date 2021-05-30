@@ -6,10 +6,10 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.OffsetDateTime;
 
-@Entity
-@Table(name = "Audit")
 @Data
 @NoArgsConstructor
+@Entity
+@Table(name = "Audit")
 public class Audit {
 
     @Id

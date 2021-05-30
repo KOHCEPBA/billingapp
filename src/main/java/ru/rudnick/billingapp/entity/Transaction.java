@@ -6,10 +6,10 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.math.BigDecimal;
 
-@Entity
-@Table(name = "Transaction")
 @Data
 @NoArgsConstructor
+@Entity
+@Table(name = "Transaction")
 public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

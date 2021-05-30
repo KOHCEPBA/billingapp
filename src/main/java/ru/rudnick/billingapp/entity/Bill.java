@@ -8,11 +8,11 @@ import lombok.RequiredArgsConstructor;
 import javax.persistence.*;
 import java.math.BigDecimal;
 
-@Entity
 @Data
-@Table(name = "Bill")
 @RequiredArgsConstructor
 @NoArgsConstructor
+@Entity
+@Table(name = "Bill")
 public class Bill {
 
     @Id

@@ -6,10 +6,10 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.math.BigDecimal;
 
-@Entity
-@Table(name = "Account")
 @Data
 @NoArgsConstructor
+@Entity
+@Table(name = "Account")
 public class Account {
 
     @Id
