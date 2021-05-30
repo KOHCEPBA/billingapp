@@ -19,17 +19,11 @@ public class Bill {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long billId;
     @ManyToOne
-    @JoinColumn(name = "accountFromId")
+    @JoinColumn(name = "accountId")
     @NonNull
-    private Account from;
-    @ManyToOne
-    @JoinColumn(name = "accountToId")
-    @NonNull
-    private Account to;
+    private Account account;
     @NonNull
     private BigDecimal amount;
-    @OneToOne
-    @JoinColumn(name = "requestId")
     @NonNull
-    private Request request;
+    private Type type;
 }

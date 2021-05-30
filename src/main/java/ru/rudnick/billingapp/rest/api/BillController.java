@@ -26,4 +26,9 @@ public class BillController {
     public List<Bill> getAllBills() {
         return repository.findAll();
     }
+
+    @GetMapping("/account/{id}")
+    public List<Bill> getBillsByAccount() {
+        return repository.findAll();
+    }
 }

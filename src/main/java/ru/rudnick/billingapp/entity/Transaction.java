@@ -7,13 +7,14 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "Account")
+@Table(name = "Transaction")
 @Data
 @NoArgsConstructor
-public class Account {
-
+public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long accountId;
-    private BigDecimal balance = BigDecimal.valueOf(0);
+    private Long transactionId;
+    private Account sourceAccount;
+    private Account targetAccount;
+    private BigDecimal amount;
 }

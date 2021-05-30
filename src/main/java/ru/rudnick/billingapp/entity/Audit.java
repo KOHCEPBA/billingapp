@@ -15,11 +15,15 @@ public class Audit {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long auditId;
+    @ManyToOne
+    @JoinColumn(name = "accountId")
+    private Account account;
     @OneToOne
-    @JoinColumn(name = "requestId")
-    private Request request;
+    @JoinColumn(name = "transactionId")
+    private Transaction transaction;
     @OneToOne
     @JoinColumn(name = "billId")
     private Bill bill;
     private OffsetDateTime time = OffsetDateTime.now();
+    private String additionalInformation;
 }

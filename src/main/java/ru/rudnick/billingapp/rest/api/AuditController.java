@@ -27,9 +27,14 @@ public class AuditController {
         return audit;
     }
 
-    @GetMapping("/request/{id}")
-    public Audit getAuditByRequest(@PathVariable("id") Long requestId) {
-        return auditService.getAuditByRequest(requestId);
+    @GetMapping("/account/{id}")
+    public List<Audit> getAuditByAccount(@PathVariable("id") Long accountId) {
+        return auditService.getAuditByAccount(accountId);
+    }
+
+    @GetMapping("/transaction/{id}")
+    public Audit getAuditByTransaction(@PathVariable("id") Long transactionId) {
+        return auditService.getAuditByTransaction(transactionId);
     }
 
     @GetMapping("/bill/{id}")

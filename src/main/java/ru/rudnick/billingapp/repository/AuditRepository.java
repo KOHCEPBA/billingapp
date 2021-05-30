@@ -8,8 +8,12 @@ import java.util.List;
 
 public interface AuditRepository extends JpaRepository<Audit, Long> {
 
-    Audit findAuditsByBillBillId(Long billId);
+    Audit findAuditByBillBillId(Long billId);
 
-    Audit findAuditsByRequestRequestId(Long billId);
+    Audit findAuditByTransactionTransactionId(Long billId);
+
+    List<Audit> findAuditsByBillAccountAccountId(Long accountId);
+    List<Audit> findAuditsByTransactionSourceAccountAccountId(Long accountId);
+    List<Audit> findAuditsByTransactionTargetAccountAccountId(Long accountId);
 
 }

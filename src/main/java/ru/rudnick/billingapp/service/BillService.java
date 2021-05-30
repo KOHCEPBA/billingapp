@@ -3,14 +3,13 @@ package ru.rudnick.billingapp.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.rudnick.billingapp.entity.Account;
-import ru.rudnick.billingapp.entity.Audit;
 import ru.rudnick.billingapp.entity.Bill;
-import ru.rudnick.billingapp.entity.Request;
-import ru.rudnick.billingapp.repository.AuditRepository;
+import ru.rudnick.billingapp.entity.Type;
+import ru.rudnick.billingapp.repository.AccountRepository;
 import ru.rudnick.billingapp.repository.BillRepository;
+import ru.rudnick.billingapp.util.exception.InvalidRequest;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 @Service
 public class BillService {
@@ -18,14 +17,37 @@ public class BillService {
     @Autowired
     BillRepository billRepository;
     @Autowired
+    AccountRepository accountRepository;
+
+    @Autowired
     AuditService auditService;
 
-    public Bill createNewBill (Account accountFrom, Account accountTo, BigDecimal amount, Request request){
-        Bill newBill = new Bill(accountFrom, accountTo, amount, request);
-        Bill bill = billRepository.saveAndFlush(newBill);
-        Audit audit = auditService.getAuditByRequest(request);
-        audit.setBill(bill);
-        auditService.save(audit);
-        return bill;
+    public Bill createNewBill(Account account, BigDecimal amount) {
+        if (amount.equals(BigDecimal.ZERO)) {
+            throw new InvalidRequest("Amount must be different from 0");
+        }
+        Bill newBill = new Bill();
+        newBill.setAccount(account);
+        newBill.setAmount(amount);
+        newBill.setType(amount.compareTo(BigDecimal.ZERO) < 0 ? Type.CREDIT : Type.DEBIT);
+        return processBill(newBill);
+    }
+
+    public Bill processBill(Bill bill) {
+        Account account = bill.getAccount();
+        BigDecimal balance = account.getBalance();
+        BigDecimal amount = bill.getAmount();
+        switch (bill.getType()) {
+            case CREDIT:
+                if (balance.compareTo(amount) < 0) {
+                    throw new InvalidRequest("Balance less than bill");
+                }
+                account.setBalance(balance.subtract(amount));
+            case DEBIT:
+                account.setBalance(balance.add(amount));
+        }
+        accountRepository.save(account);
+        auditService.createAudit(bill);
+        return billRepository.save(bill);
     }
 }
