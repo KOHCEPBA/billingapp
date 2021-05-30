@@ -47,7 +47,8 @@ public class BillService {
                 account.setBalance(balance.add(amount));
         }
         accountRepository.save(account);
+        Bill savedBill = billRepository.save(bill);
         auditService.createAudit(bill);
-        return billRepository.save(bill);
+        return savedBill;
     }
 }

@@ -5,7 +5,9 @@ import org.springframework.web.bind.annotation.*;
 import ru.rudnick.billingapp.entity.Account;
 import ru.rudnick.billingapp.entity.Bill;
 import ru.rudnick.billingapp.repository.AccountRepository;
+import ru.rudnick.billingapp.service.BillService;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -14,6 +16,9 @@ public class AccountController {
 
     @Autowired
     AccountRepository repository;
+
+    @Autowired
+    BillService billService;
 
     @GetMapping("/all")
     public List<Account> getAllAccounts() {
@@ -30,5 +35,10 @@ public class AccountController {
         Account account = new Account();
         repository.save(account);
         return account;
+    }
+
+    @PostMapping("/{id}/payment")
+    public Bill changeBalance(@PathVariable("id") Account account, @RequestParam("amount") BigDecimal amount) {
+        return billService.createNewBill(account, amount);
     }
 }

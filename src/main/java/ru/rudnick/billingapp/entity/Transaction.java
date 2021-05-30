@@ -14,7 +14,11 @@ public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long transactionId;
+    @ManyToOne
+    @JoinColumn(name = "sourceAccountId")
     private Account sourceAccount;
+    @ManyToOne
+    @JoinColumn(name = "targetAccountId")
     private Account targetAccount;
     private BigDecimal amount;
 }
