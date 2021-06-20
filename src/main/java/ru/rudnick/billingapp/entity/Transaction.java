@@ -15,10 +15,10 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long transactionId;
     @ManyToOne
-    @JoinColumn(name = "sourceAccountId")
+    @JoinColumn(name = "sourceAccount")
     private Account sourceAccount;
     @ManyToOne
-    @JoinColumn(name = "targetAccountId")
+    @JoinColumn(name = "targetAccount")
     private Account targetAccount;
     private BigDecimal amount;
 }

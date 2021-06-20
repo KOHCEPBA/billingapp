@@ -32,4 +32,9 @@ public class TransitionController {
                                             @RequestParam("amount") BigDecimal amount) {
         return transactionService.createNewTransaction(accountFrom, accountTo, amount);
     }
+
+    @GetMapping("/account/{id}")
+    public List<Transaction> getTransactions(@PathVariable("id") Long accountId) {
+        return transactionService.getTransactions(accountId);
+    }
 }

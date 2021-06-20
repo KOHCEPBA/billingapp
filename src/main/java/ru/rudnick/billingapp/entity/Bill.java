@@ -19,7 +19,7 @@ public class Bill {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long billId;
     @ManyToOne
-    @JoinColumn(name = "accountId")
+    @JoinColumn(name = "account")
     @NonNull
     private Account account;
     @NonNull

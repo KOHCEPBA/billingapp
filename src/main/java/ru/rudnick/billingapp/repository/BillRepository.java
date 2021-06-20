@@ -6,5 +6,5 @@ import ru.rudnick.billingapp.entity.Bill;
 import java.util.List;
 
 public interface BillRepository extends JpaRepository<Bill, Long> {
-    List<Bill> findBillsByAccountAccountId(Long accountId);
+    List<Bill> findAllByAccount_AccountId(Long accountId);
 }

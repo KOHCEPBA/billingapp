@@ -28,7 +28,7 @@ public class BillController {
     }
 
     @GetMapping("/account/{id}")
-    public List<Bill> getBillsByAccount(@PathVariable("accountId") Long accountId) {
-        return repository.findBillsByAccountAccountId(accountId);
+    public List<Bill> getBillsByAccount(@PathVariable("id") Long accountId) {
+        return repository.findAllByAccount_AccountId(accountId);
     }
 }

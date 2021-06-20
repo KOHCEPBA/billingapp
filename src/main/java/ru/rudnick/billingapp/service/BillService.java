@@ -43,8 +43,10 @@ public class BillService {
                     throw new InvalidRequest("Balance less than bill");
                 }
                 account.setBalance(balance.subtract(amount));
+                break;
             case DEBIT:
                 account.setBalance(balance.add(amount));
+                break;
         }
         accountRepository.save(account);
         Bill savedBill = billRepository.save(bill);
