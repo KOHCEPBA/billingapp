@@ -44,13 +44,13 @@ public class AuditService {
         Audit audit = new Audit();
         audit.setBill(bill);
         audit.setAccount(bill.getAccount());
-        return auditRepository.save(audit);
+        return save(audit);
     }
 
     public Audit createAudit(Transaction transaction) {
         Audit audit = new Audit();
         audit.setTransaction(transaction);
         audit.setAccount(transaction.getSourceAccount());
-        return auditRepository.save(audit);
+        return save(audit);
     }
 }

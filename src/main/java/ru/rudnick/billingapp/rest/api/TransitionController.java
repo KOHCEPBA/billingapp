@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
-@RequestMapping("/request")
+@RequestMapping("/transaction")
 public class TransitionController {
 
     @Autowired
