@@ -31,10 +31,10 @@ public class AccountController {
     }
 
     @PostMapping("/create")
-    public Account createNewAccount() {
+    public Long createNewAccount() {
         Account account = new Account();
         repository.save(account);
-        return account;
+        return account.getAccountId();
     }
 
     @PostMapping("/{id}/payment")
